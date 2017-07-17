@@ -117,7 +117,7 @@ describe LogStash::Inputs::Jdbc do
     end
 
     it "should read in jdbc_password from file" do
-      expect(plugin.jdbc_password).to eq(jdbc_password)
+      expect(plugin.jdbc_password.value).to eq(jdbc_password)
     end
   end
 
@@ -916,7 +916,7 @@ describe LogStash::Inputs::Jdbc do
       it "the field names are lower case" do
         plugin.run(events)
         expect(events.first.to_hash.keys.sort).to eq(
-          ["@timestamp", "@version","num", "somestring", "tags"])
+          ["@timestamp", "@version","num", "somestring"])
       end
     end
 
@@ -925,7 +925,7 @@ describe LogStash::Inputs::Jdbc do
       it "the field names are UPPER case (natural for Derby DB)" do
         plugin.run(events)
         expect(events.first.to_hash.keys.sort).to eq(
-          ["@timestamp", "@version","NUM", "SOMESTRING", "tags"])
+          ["@timestamp", "@version","NUM", "SOMESTRING"])
       end
     end
   end
